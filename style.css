@@ -1,0 +1,35 @@
+/*
+  Removed color and background overrides for body, headings, text-gray-*, text-white, bg-white, bg-gray-50, bg-gray-100 to let Tailwind handle theme and font color. Kept only custom styles for animation and effects.
+*/
+
+a {
+  color: #1d4ed8;
+}
+
+a:hover {
+  color: #0f172a;
+}
+
+.button-animate {
+  transition: transform 0.12s cubic-bezier(.4,0,.2,1), box-shadow 0.12s;
+}
+.button-animate:hover {
+  transform: scale(1.08) translateY(-4px) rotateZ(-1deg);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(255,193,7,0.12);
+  filter: brightness(1.1);
+}
+
+.card-3d {
+  transition: transform 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s, filter 0.18s;
+  will-change: transform, filter;
+}
+.card-3d:hover {
+  transform: perspective(600px) rotateY(8deg) scale(1.06);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.22);
+  filter: brightness(1.07) saturate(1.1);
+}
+
+.group:hover .group-hover\:scale-110 {
+  transform: scale(1.12);
+  filter: brightness(1.12) saturate(1.1);
+}
