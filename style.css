@@ -33,3 +33,11 @@ a:hover {
   transform: scale(1.12);
   filter: brightness(1.12) saturate(1.1);
 }
+
+.footer-link {
+  transition: color 0.18s, text-shadow 0.18s;
+}
+.footer-link:hover {
+  color: #facc15; /* Tailwind yellow-400 */
+  text-shadow: 0 2px 8px rgba(250,204,21,0.18);
+}
