@@ -182,9 +182,6 @@ p {
     z-index: 1;
     max-width: 800px;
     padding: 2rem;
-    border-radius: 20px;
-    border: 2px solid #B8860B;
-    background-color: #1e3a24a0;
 }
 
 .hero-title {
@@ -935,54 +932,166 @@ p {
     }
 }
 
-/* Responsive Design */
+/* Enhanced Mobile Animations & Interactions */
 @media (max-width: 768px) {
-    .hamburger {
-        display: flex;
+    /* Mobile-optimized animations */
+    body {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
     }
 
+    /* Enhanced hamburger animation */
+    .hamburger {
+        display: flex;
+        transition: transform 0.3s ease;
+        position: relative;
+        z-index: 1001;
+    }
+
+    .hamburger:active {
+        transform: scale(0.9);
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Enhanced mobile navigation */
     .nav-menu {
         position: fixed;
         left: -100%;
-        top: 70px;
+        top: 0;
+        height: 100vh;
         flex-direction: column;
-        background-color: rgba(30, 58, 36, 0.98);
+        background: linear-gradient(135deg, 
+            rgba(30, 58, 36, 0.98) 0%, 
+            rgba(58, 47, 43, 0.98) 100%);
         width: 100%;
         text-align: center;
-        transition: var(--transition);
-        backdrop-filter: blur(20px);
-        padding: 2rem 0;
+        transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        backdrop-filter: blur(30px);
+        padding: 5rem 0 2rem;
+        justify-content: center;
+        z-index: 1000;
     }
 
     .nav-menu.active {
         left: 0;
+        animation: slideInFromLeft 0.4s ease-out;
     }
 
     .nav-menu li {
-        margin: 1rem 0;
+        margin: 1.5rem 0;
+        opacity: 0;
+        transform: translateX(-20px);
+        animation: fadeInSlideRight 0.5s ease-out forwards;
     }
 
+    .nav-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+    .nav-menu.active li:nth-child(2) { animation-delay: 0.2s; }
+    .nav-menu.active li:nth-child(3) { animation-delay: 0.3s; }
+    .nav-menu.active li:nth-child(4) { animation-delay: 0.4s; }
+    .nav-menu.active li:nth-child(5) { animation-delay: 0.5s; }
+
+    .nav-link {
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nav-link:active {
+        transform: scale(0.95);
+        background: rgba(184, 134, 11, 0.2);
+    }
+
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.3), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .nav-link:active::before {
+        left: 100%;
+    }    /* Enhanced mobile hero */
     .hero-title {
         font-size: 2.5rem;
+        animation: mobileHeroTitle 1s ease-out;
     }
 
     .hero-subtitle {
         font-size: 1.1rem;
+        animation: mobileHeroSubtitle 1s ease-out 0.3s both;
     }
 
+    .cta-button {
+        animation: mobileHeroCTA 1s ease-out 0.6s both;
+        transform: translateY(0);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cta-button:active {
+        transform: translateY(-2px) scale(0.98);
+        box-shadow: 0 8px 25px rgba(184, 134, 11, 0.4);
+    }
+
+    /* Enhanced mobile typography */
     h1 {
         font-size: 2.5rem;
     }
 
     h2 {
         font-size: 2rem;
+        animation: fadeInUp 0.8s ease-out;
     }
 
+    /* Enhanced mobile grids with stagger animations */
     .materials-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
 
+    .material-card {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform, opacity;
+    }
+
+    .material-card.animate {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    .material-card:nth-child(1).animate { animation-delay: 0.1s; }
+    .material-card:nth-child(2).animate { animation-delay: 0.2s; }
+    .material-card:nth-child(3).animate { animation-delay: 0.3s; }
+    .material-card:nth-child(4).animate { animation-delay: 0.4s; }
+    .material-card:nth-child(5).animate { animation-delay: 0.5s; }
+    .material-card:nth-child(6).animate { animation-delay: 0.6s; }
+
+    .material-card:active {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Enhanced collection cards */
     .collections-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -990,8 +1099,31 @@ p {
 
     .collection-card {
         min-height: 400px;
+        opacity: 0;
+        transform: translateX(-30px);
+        transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
+    .collection-card.animate {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .collection-card:nth-child(odd).animate {
+        transform: translateX(0);
+        animation: slideInFromLeft 0.7s ease-out;
+    }
+
+    .collection-card:nth-child(even).animate {
+        transform: translateX(0);
+        animation: slideInFromRight 0.7s ease-out;
+    }
+
+    .collection-card:active {
+        transform: scale(0.98);
+    }
+
+    /* Enhanced craft blocks */
     .craft-block,
     .bespoke-content {
         grid-template-columns: 1fr;
@@ -1002,20 +1134,72 @@ p {
         direction: ltr;
     }
 
+    .craft-block {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .craft-block.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     .craft-image {
         height: 300px;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .craft-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(184, 134, 11, 0.1) 50%, transparent 70%);
+        transform: translateX(-100%);
+        transition: transform 0.8s ease;
+    }
+
+    .craft-block.animate .craft-image::before {
+        transform: translateX(100%);
     }
 
     .bespoke-image {
         height: 300px;
         order: -1;
-    }
-
+    }    /* Enhanced ethos pillars */
     .ethos-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
 
+    .ethos-pillar {
+        opacity: 0;
+        transform: translateY(30px) rotateX(15deg);
+        transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform, opacity;
+    }
+
+    .ethos-pillar.animate {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+
+    .ethos-pillar:nth-child(1).animate { animation-delay: 0.1s; }
+    .ethos-pillar:nth-child(2).animate { animation-delay: 0.2s; }
+    .ethos-pillar:nth-child(3).animate { animation-delay: 0.3s; }
+    .ethos-pillar:nth-child(4).animate { animation-delay: 0.4s; }
+
+    .ethos-pillar:active {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(184, 134, 11, 0.2);
+    }
+
+    /* Enhanced footer */
     .footer-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1023,81 +1207,385 @@ p {
 
     .newsletter-form {
         flex-direction: column;
+        gap: 1rem;
     }
 
+    .newsletter-form input,
+    .newsletter-form button {
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .newsletter-form input:focus {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
+    }
+
+    .newsletter-form button:active {
+        transform: scale(0.98);
+    }
+
+    /* Enhanced mobile spacing */
     .container {
         padding: 0 1rem;
     }
 
     .section-title {
         font-size: 2rem;
+        animation: fadeInUp 0.8s ease-out;
     }
 
     .testimonial blockquote {
         font-size: 1.2rem;
     }
+
+    /* Mobile-specific touch interactions */
+    .learn-more,
+    .collection-cta,
+    .social-link {
+        padding: 0.8rem 1.5rem;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .learn-more:active,
+    .collection-cta:active,
+    .social-link:active {
+        transform: scale(0.95);
+        background: rgba(184, 134, 11, 0.2);
+    }
+
+    /* Enhanced mobile scroll indicator */
+    .scroll-indicator {
+        animation: mobileScrollBounce 2s infinite;
+    }
+
+    .scroll-indicator:active {
+        transform: translateX(-50%) scale(1.2);
+    }
 }
 
+/* Enhanced Mobile Animations for Extra Small Screens */
 @media (max-width: 480px) {
     .hero-title {
         font-size: 2rem;
+        line-height: 1.1;
+        animation: mobileSmallHeroTitle 1.2s ease-out;
     }
 
     .hero-subtitle {
         font-size: 1rem;
+        animation: mobileSmallHeroSubtitle 1.2s ease-out 0.4s both;
     }
 
     .cta-button {
         padding: 0.8rem 2rem;
         font-size: 0.9rem;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cta-button:active {
+        transform: translateY(-1px) scale(0.97);
+        box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3);
     }
 
     .material-card,
     .ethos-pillar {
         padding: 1.5rem;
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .material-card:active,
+    .ethos-pillar:active {
+        transform: translateY(-3px) scale(1.01);
     }
 
     .craft-image,
     .bespoke-image {
         height: 250px;
+        border-radius: 15px;
+    }
+
+    /* Small screen touch improvements */
+    .nav-link {
+        font-size: 1.1rem;
+        padding: 1.2rem 2rem;
+        margin: 0.5rem 0;
+    }
+
+    .testimonial blockquote {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    /* Enhanced small screen interactions */
+    .material-image,
+    .collection-image {
+        transition: transform 0.4s ease;
+    }
+
+    .material-card:active .material-image,
+    .collection-card:active .collection-image {
+        transform: scale(1.05);
     }
 }
 
-/* Scroll Animations */
-@media (prefers-reduced-motion: no-preference) {
-    .material-card,
-    .collection-card,
-    .craft-block,
-    .ethos-pillar {
+/* Mobile-Specific Animation Keyframes */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInSlideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes mobileHeroTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes mobileHeroSubtitle {
+    0% {
         opacity: 0;
         transform: translateY(30px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
     }
-
-    .material-card.animate,
-    .collection-card.animate,
-    .craft-block.animate,
-    .ethos-pillar.animate {
+    100% {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    :root {
-        --primary-green: #000000;
-        --primary-brown: #1a1a1a;
-        --accent-gold: #ffff00;
-        --text-light: #ffffff;
+@keyframes mobileHeroCTA {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+@keyframes mobileSmallHeroTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        filter: blur(2px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes mobileSmallHeroSubtitle {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(1px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes mobileScrollBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-7px);
+    }
+}
+
+@keyframes mobileCardPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(184, 134, 11, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(184, 134, 11, 0);
+    }
+}
+
+/* Mobile Haptic Feedback Simulation */
+@keyframes mobileVibrate {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-1px); }
+    20%, 40%, 60%, 80% { transform: translateX(1px); }
+}
+
+/* Additional Mobile Touch Enhancements */
+@media (max-width: 768px) {
+    /* Touch-friendly button states */
+    .cta-button,
+    .collection-cta,
+    .learn-more,
+    .social-link,
+    .newsletter-form button {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-button::before,
+    .collection-cta::before,
+    .learn-more::before,
+    .social-link::before,
+    .newsletter-form button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .cta-button:active::before,
+    .collection-cta:active::before,
+    .learn-more:active::before,
+    .social-link:active::before,
+    .newsletter-form button:active::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Enhanced texture backgrounds for mobile */
+    .texture-bg {
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .material-card:active .texture-bg {
+        transform: scale(1.08);
+        filter: brightness(1.1) contrast(1.05);
+    }
+
+    /* Mobile-optimized parallax alternative */
+    .hero-bg {
+        animation: mobileParallax 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes mobileParallax {
+        0% {
+            transform: scale(1) translateY(0);
+        }
+        100% {
+            transform: scale(1.03) translateY(-10px);
+        }
+    }
+
+    /* Improved mobile testimonial transitions */
+    .testimonial {
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .testimonial.active {
+        animation: mobileTestimonialFade 0.6s ease-in-out;
+    }
+
+    @keyframes mobileTestimonialFade {
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    /* Mobile scroll snap for smoother scrolling */
+    .materials-section,
+    .collections-section,
+    .craftsmanship-section,
+    .bespoke-section,
+    .ethos-section {
+        scroll-snap-align: start;
+    }
+
+    html {
+        scroll-snap-type: y proximity;
+    }
+}
+
+/* Progressive Enhancement for Modern Mobile Browsers */
+@supports (backdrop-filter: blur(10px)) {
+    @media (max-width: 768px) {
+        .nav-menu {
+            backdrop-filter: blur(30px) saturate(180%);
+            background: rgba(30, 58, 36, 0.85);
+        }
+        
+        .material-card,
+        .ethos-pillar {
+            backdrop-filter: blur(15px) saturate(120%);
+            background: rgba(255, 255, 255, 0.08);
+        }
+    }
+}
+
+/* Accessibility improvements for mobile */
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .material-card.animate,
+    .collection-card.animate,
+    .craft-block.animate,
+    .ethos-pillar.animate {
+        animation-duration: 0.6s;
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+}
+
+/* Dark mode optimizations for mobile */
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+    .material-card,
+    .ethos-pillar {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(184, 134, 11, 0.3);
+    }
+    
+    .nav-menu {
+        background: rgba(0, 0, 0, 0.95);
     }
 }

@@ -45,18 +45,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 navbar.style.background = 'rgba(30, 58, 36, 0.95)';
             }
         });
-    }
-
-    // Scroll-triggered animations
+    }    // Enhanced scroll-triggered animations with mobile optimizations
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: window.innerWidth <= 768 ? 0.05 : 0.1, // Lower threshold for mobile
+        rootMargin: window.innerWidth <= 768 ? '0px 0px -30px 0px' : '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
+                // Add staggered animation for mobile
+                if (window.innerWidth <= 768) {
+                    const siblings = Array.from(entry.target.parentNode.children);
+                    const index = siblings.indexOf(entry.target);
+                    const delay = index * 100; // 100ms stagger
+                    
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                        
+                        // Add mobile-specific effects
+                        if (entry.target.classList.contains('material-card')) {
+                            entry.target.style.willChange = 'transform, opacity';
+                        }
+                    }, delay);
+                } else {
+                    entry.target.classList.add('animate');
+                }
             }
         });
     }, observerOptions);
@@ -109,9 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showTestimonial(currentTestimonial);
             });
         });
-    }
-
-    // Material cards hover effects
+    }    // Material cards enhanced mobile interactions
     const materialCards = document.querySelectorAll('.material-card');
     materialCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
@@ -121,9 +133,31 @@ document.addEventListener('DOMContentLoaded', function() {
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(-10px) scale(1)';
         });
-    });
 
-    // Collection cards interactive effects
+        // Enhanced mobile touch interactions
+        if (window.innerWidth <= 768) {
+            card.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.classList.add('mobile-active');
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+                this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
+                this.style.transition = 'all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                
+                // Add pulse animation
+                this.style.animation = 'mobileCardPulse 1s ease-out';
+            }, { passive: false });
+            
+            card.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.classList.remove('mobile-active');
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '';
+                    this.style.animation = '';
+                    this.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                }, 150);
+            }, { passive: true });
+        }
+    });    // Collection cards enhanced mobile interactions
     const collectionCards = document.querySelectorAll('.collection-card');
     collectionCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
@@ -139,6 +173,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 image.style.transform = 'scale(1.1)';
             }
         });
+
+        // Enhanced mobile interactions for collection cards
+        if (window.innerWidth <= 768) {
+            card.addEventListener('touchstart', function(e) {
+                this.style.transform = 'scale(0.98)';
+                this.style.transition = 'transform 0.1s ease';
+                
+                const image = this.querySelector('.collection-image');
+                if (image) {
+                    image.style.transform = 'scale(1.12)';
+                    image.style.filter = 'brightness(1.1)';
+                }
+            }, { passive: true });
+            
+            card.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    this.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    
+                    const image = this.querySelector('.collection-image');
+                    if (image) {
+                        image.style.transform = 'scale(1.1)';
+                        image.style.filter = '';
+                    }
+                }, 100);
+            }, { passive: true });
+        }
     });
 
     // Newsletter form submission
@@ -241,18 +302,164 @@ document.addEventListener('DOMContentLoaded', function() {
             100% { filter: brightness(1); }
         }
     `;
-    document.head.appendChild(style);
-
-    // Enhanced mobile experience
+    document.head.appendChild(style);    // Enhanced mobile experience
     if (window.innerWidth <= 768) {
         // Optimize animations for mobile
         const mobileElements = document.querySelectorAll('.material-card, .collection-card, .ethos-pillar');
         mobileElements.forEach(element => {
-            element.style.transition = 'transform 0.2s ease, opacity 0.3s ease';
+            element.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease, box-shadow 0.3s ease';
         });
 
-        // Touch-friendly interactions
+        // Enhanced touch interactions
         document.addEventListener('touchstart', function() {}, { passive: true });
+        
+        // Add mobile-specific touch feedback
+        const interactiveElements = document.querySelectorAll('.cta-button, .nav-link, .material-card, .collection-card, .ethos-pillar, .learn-more, .collection-cta, .social-link');
+        
+        interactiveElements.forEach(element => {
+            // Touch start feedback
+            element.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+                this.style.transition = 'transform 0.1s ease';
+            }, { passive: true });
+            
+            // Touch end restoration
+            element.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                }, 100);
+            }, { passive: true });
+            
+            // Touch cancel restoration (for interrupted touches)
+            element.addEventListener('touchcancel', function() {
+                this.style.transform = '';
+                this.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }, { passive: true });
+        });
+
+        // Enhanced mobile hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        if (hamburger) {
+            hamburger.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.9)';
+            }, { passive: true });
+            
+            hamburger.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            }, { passive: true });
+        }
+
+        // Mobile scroll enhancements
+        let isScrolling = false;
+        const scrollElements = document.querySelectorAll('.material-card, .collection-card, .craft-block, .ethos-pillar');
+        
+        window.addEventListener('scroll', debounce(function() {
+            if (!isScrolling) {
+                isScrolling = true;
+                
+                scrollElements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                    
+                    if (isVisible && !element.classList.contains('animate')) {
+                        // Add staggered animation delays
+                        const delay = Array.from(element.parentNode.children).indexOf(element) * 100;
+                        setTimeout(() => {
+                            element.classList.add('animate');
+                        }, delay);
+                    }
+                });
+                
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            }
+        }, 16), { passive: true });
+
+        // Mobile-specific swipe gestures for testimonials
+        const testimonialsContainer = document.querySelector('.testimonials-slider');
+        if (testimonialsContainer) {
+            let startX = 0;
+            let startY = 0;
+            let threshold = 50; // minimum distance for swipe
+            
+            testimonialsContainer.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            testimonialsContainer.addEventListener('touchend', function(e) {
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+                const deltaX = endX - startX;
+                const deltaY = endY - startY;
+                
+                // Check if horizontal swipe is dominant
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
+                    if (deltaX > 0) {
+                        // Swipe right - previous testimonial
+                        currentTestimonial = currentTestimonial > 0 ? currentTestimonial - 1 : testimonials.length - 1;
+                    } else {
+                        // Swipe left - next testimonial
+                        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                    }
+                    showTestimonial(currentTestimonial);
+                }
+            }, { passive: true });
+        }
+
+        // Mobile haptic feedback simulation
+        function simulateHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(50); // 50ms vibration
+            }
+        }
+
+        // Add haptic feedback to important interactions
+        document.querySelectorAll('.cta-button, .hamburger, .nav-link').forEach(element => {
+            element.addEventListener('touchend', simulateHaptic, { passive: true });
+        });
+
+        // Mobile-optimized parallax alternative
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            let ticking = false;
+            
+            function updateHeroTransform() {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.3;
+                
+                if (heroSection.querySelector('.hero-bg')) {
+                    heroSection.querySelector('.hero-bg').style.transform = `translateY(${rate}px)`;
+                }
+                
+                ticking = false;
+            }
+            
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(updateHeroTransform);
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+
+        // Enhanced mobile navigation close on outside tap
+        document.addEventListener('touchstart', function(e) {
+            const navMenu = document.querySelector('.nav-menu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (navMenu && navMenu.classList.contains('active') && 
+                !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        }, { passive: true });
+
+        console.log('Enhanced mobile interactions initialized');
     }
 
     // Performance optimization: Debounce scroll events
