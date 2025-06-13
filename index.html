@@ -1,338 +1,328 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nike Landing Page</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  </head>
-  <body class="bg-white text-gray-900">
-    <!-- Navigation -->
-    <nav class="flex items-center justify-between px-4 py-3 bg-white shadow-md sticky top-0 z-50">
-      <div class="flex items-center gap-4">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike Logo" class="h-8" />
-        <ul class="desktop-nav hidden md:flex gap-8 font-semibold">
-          <li><a href="#" class="hover:text-black transition">Men</a></li>
-          <li><a href="#" class="hover:text-black transition">Women</a></li>
-          <li><a href="#" class="hover:text-black transition">Kids</a></li>
-          <li><a href="#" class="hover:text-black transition">Sale</a></li>
-        </ul>
-        <button class="mobile-nav md:hidden flex flex-col justify-center items-center ml-2" id="mobile-menu-btn" aria-label="Open menu">
-          <span class="block w-7 h-1 bg-black rounded mb-1"></span>
-          <span class="block w-7 h-1 bg-black rounded mb-1"></span>
-          <span class="block w-7 h-1 bg-black rounded"></span>
-        </button>
-      </div>
-      <div class="flex items-center gap-4">
-        <button class="button-animate px-4 py-2 rounded-full bg-black text-white font-bold w-full md:w-auto">Sign In</button>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLux - Future Crafted. Consciously Worn.</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>EcoLux</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#collections" class="nav-link">Collections</a></li>
+                <li class="nav-item"><a href="#innovation" class="nav-link">Innovation</a></li>
+                <li class="nav-item"><a href="#bespoke" class="nav-link">Bespoke</a></li>
+                <li class="nav-item"><a href="#story" class="nav-link">Our Story</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
     </nav>
-    <div class="mobile-menu md:hidden w-full absolute left-0 top-[60px] bg-white shadow-lg z-40" id="mobile-menu">
-      <a href="#">Men</a>
-      <a href="#">Women</a>
-      <a href="#">Kids</a>
-      <a href="#">Sale</a>
-    </div>
 
-    <!-- Promotional Banner -->
-    <div
-      class="w-full bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-white text-center py-3 font-bold text-lg mb-4 flex items-center justify-center gap-2"
-    >
-      <img
-        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmlrZXxlbnwwfHwwfHx8MA%3D%3D"
-        alt="Promo"
-        class="h-8 hidden md:inline-block"
-      />
-      <span
-        >New Arrivals: Air Max Spring Collection –
-        <a href="#" class="underline">Shop Now</a></span
-      >
-    </div>
-
-    <!-- Hero Section with Background Image -->
-    <section
-      class="relative flex flex-col md:flex-row items-center justify-between px-8 py-20 bg-gray-50 overflow-hidden rounded-3xl shadow-xl mb-12"
-      style="
-        background-image: url(https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmlrZXxlbnwwfHwwfHx8MA%3D%3D);
-        background-size: cover;
-        background-position: center;
-      "
-    >
-      <div
-        class="absolute inset-0 bg-black bg-opacity-30 z-0 rounded-3xl"
-      ></div>
-      <div class="max-w-xl z-10" data-aos="fade-right">
-        <h1
-          class="text-5xl md:text-6xl font-extrabold mb-6 text-white drop-shadow-lg"
-        >
-          Unleash Your <span class="text-yellow-300">Potential</span>
-        </h1>
-        <p class="text-lg text-gray-100 mb-8">
-          Discover the latest Nike collections and elevate your game with style
-          and comfort.
-        </p>
-        <button
-          class="button-animate bg-yellow-400 text-black px-8 py-3 rounded-full font-bold shadow-lg"
-        >
-          Shop Now
-        </button>
-      </div>
-      <div class="mt-10 md:mt-0 md:ml-12 z-10 flex flex-col items-center">
-        <div
-          class="card-3d w-96 h-96 bg-white bg-opacity-80 rounded-2xl shadow-2xl flex items-center justify-center relative overflow-hidden"
-        >
-          <img
-            src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/2e7e6e5e-2e7e-4e5e-8e5e-2e7e6e5e2e7e/air-max-270-mens-shoes-KkLcGR.png"
-            alt="Nike Shoe"
-            class="w-72 transition-transform duration-300 hover:scale-110 z-10"
-          />
-          <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/hero-shoe-bg.png"
-            alt="Shoe BG"
-            class="absolute bottom-0 right-0 w-40 opacity-30 z-0"
-          />
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-video">
+            <!-- <div class="hero-bg"></div> -->
+            <video autoplay muted loop playsinline class="hero-video-bg" style="opacity: 0.5;">
+                <source src="./Public/hero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
-      </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Future Crafted.<br>Consciously Worn.</h1>
+            <p class="hero-subtitle">Ethical Materials. Uncompromising Elegance. Unparalleled Comfort.</p>
+            <a href="#collections" class="cta-button">Discover Our Sustainable Collections</a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
     </section>
 
-    <!-- Trending Now Section -->
-    <section class="px-8 py-10 bg-white" data-aos="fade-up">
-      <h2 class="text-3xl font-bold mb-6">Trending Now</h2>
-      <div class="flex space-x-6 overflow-x-auto pb-4 hide-scroll-bar">
-        <!-- Card 1 -->
-        <div class="min-w-[260px] card-3d trending-card bg-gradient-to-br from-yellow-100 via-white to-yellow-50 rounded-2xl shadow-xl p-4 flex flex-col items-center relative">
-          <span class="absolute top-3 left-3 bg-yellow-400 text-xs font-bold px-3 py-1 rounded-full text-white shadow">Hot</span>
-          <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/air-force-1-07-mens-shoes-jBrhbr.png" alt="Air Force 1" class="w-40 mb-2 rounded-xl shadow-lg border-4 border-white" />
-          <h3 class="font-extrabold text-lg mb-1 text-gray-900">Air Force 1</h3>
-          <span class="text-gray-600 mb-2 text-sm">Men's Shoes</span>
-          <button class="button-animate bg-black text-white px-5 py-2 rounded-full font-bold mt-2 w-full" onclick="openTrendingModal(0)">Quick View</button>
-        </div>
-        <!-- Card 2 -->
-        <div class="min-w-[260px] card-3d trending-card bg-gradient-to-br from-pink-100 via-white to-pink-50 rounded-2xl shadow-xl p-4 flex flex-col items-center relative">
-          <span class="absolute top-3 left-3 bg-pink-400 text-xs font-bold px-3 py-1 rounded-full text-white shadow">New</span>
-          <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/pegasus-41-mens-road-running-shoes-2w8QwQ.png" alt="Pegasus 41" class="w-40 mb-2 rounded-xl shadow-lg border-4 border-white" />
-          <h3 class="font-extrabold text-lg mb-1 text-gray-900">Pegasus 41</h3>
-          <span class="text-gray-600 mb-2 text-sm">Running</span>
-          <button class="button-animate bg-black text-white px-5 py-2 rounded-full font-bold mt-2 w-full" onclick="openTrendingModal(1)">Quick View</button>
-        </div>
-        <!-- Card 3 -->
-        <div class="min-w-[260px] card-3d trending-card bg-gradient-to-br from-blue-100 via-white to-blue-50 rounded-2xl shadow-xl p-4 flex flex-col items-center relative">
-          <span class="absolute top-3 left-3 bg-blue-400 text-xs font-bold px-3 py-1 rounded-full text-white shadow">Classic</span>
-          <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/air-jordan-1-low-se-mens-shoes-83Lm6D.png" alt="Jordan 1 Low" class="w-40 mb-2 rounded-xl shadow-lg border-4 border-white" />
-          <h3 class="font-extrabold text-lg mb-1 text-gray-900">Jordan 1 Low</h3>
-          <span class="text-gray-600 mb-2 text-sm">Lifestyle</span>
-          <button class="button-animate bg-black text-white px-5 py-2 rounded-full font-bold mt-2 w-full" onclick="openTrendingModal(2)">Quick View</button>
-        </div>
-        <!-- Card 4 -->
-        <div class="min-w-[260px] card-3d trending-card bg-gradient-to-br from-green-100 via-white to-green-50 rounded-2xl shadow-xl p-4 flex flex-col items-center relative">
-          <span class="absolute top-3 left-3 bg-green-400 text-xs font-bold px-3 py-1 rounded-full text-white shadow">Fresh</span>
-          <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/zoom-vomero-5-mens-shoes-5QWp5Q.png" alt="Vomero 5" class="w-40 mb-2 rounded-xl shadow-lg border-4 border-white" />
-          <h3 class="font-extrabold text-lg mb-1 text-gray-900">Vomero 5</h3>
-          <span class="text-gray-600 mb-2 text-sm">Men's Shoes</span>
-          <button class="button-animate bg-black text-white px-5 py-2 rounded-full font-bold mt-2 w-full" onclick="openTrendingModal(3)">Quick View</button>
-        </div>
-      </div>
-      <!-- Trending Now Modals -->
-      <div id="product-modal-bg" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden flex items-center justify-center"></div>
-      <div id="product-modal" class="fixed z-50 hidden bg-white rounded-2xl shadow-2xl p-6 w-11/12 max-w-sm flex flex-col items-center">
-        <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-black text-2xl font-bold">&times;</button>
-        <img id="modal-img" src="" alt="Shoe" class="w-40 mb-4 rounded-xl shadow-lg border-4 border-white" />
-        <h3 id="modal-title" class="font-extrabold text-2xl mb-2 text-gray-900"></h3>
-        <span id="modal-type" class="text-gray-600 mb-3 text-base"></span>
-        <p id="modal-desc" class="text-gray-700 text-center mb-4"></p>
-        <a id="modal-shop" href="#" class="button-animate bg-black text-white px-8 py-2 rounded-full font-bold w-full text-center">Shop Now</a>
-      </div>
-    </section>
-
-    <!-- Featured Section Example -->
-    <section class="px-8 py-16" data-aos="fade-up">
-      <h2 class="text-3xl font-bold mb-8">Featured Collections</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div
-          class="card-3d bg-white rounded-xl shadow-lg p-6 flex flex-col items-center"
-        >
-          <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/air-max-lifestyle.jpg"
-            alt="Air Max"
-            class="w-40 mb-4 rounded-xl"
-          />
-          <h3 class="font-bold text-xl mb-2">Air Max</h3>
-          <button
-            class="button-animate bg-black text-white px-6 py-2 rounded-full font-bold"
-          >
-            Shop
-          </button>
-        </div>
-        <div
-          class="card-3d bg-white rounded-xl shadow-lg p-6 flex flex-col items-center"
-        >
-          <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/jordan-lifestyle.jpg"
-            alt="Jordan"
-            class="w-40 mb-4 rounded-xl"
-          />
-          <h3 class="font-bold text-xl mb-2">Jordan</h3>
-          <button
-            class="button-animate bg-black text-white px-6 py-2 rounded-full font-bold"
-          >
-            Shop
-          </button>
-        </div>
-        <div
-          class="card-3d bg-white rounded-xl shadow-lg p-6 flex flex-col items-center"
-        >
-          <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/blazer-lifestyle.jpg"
-            alt="Blazer"
-            class="w-40 mb-4 rounded-xl"
-          />
-          <h3 class="font-bold text-xl mb-2">Blazer</h3>
-          <button
-            class="button-animate bg-black text-white px-6 py-2 rounded-full font-bold"
-          >
-            Shop
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Shop by Sport Section -->
-    <section class="px-8 py-16 bg-white" data-aos="fade-up">
-      <h2 class="text-3xl font-bold mb-8 text-center">Shop by Sport</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div
-          class="card-3d bg-gray-50 rounded-xl shadow-lg p-6 flex flex-col items-center"
-        >
-          <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/running-action.jpg"
-            alt="Running"
-            class="w-32 mb-4 rounded-lg"
-          />
-          <h3 class="font-bold text-xl mb-2">Running</h3>
-          <button
-            class="button-animate bg-black text-white px-6 py-2 rounded-full font-bold"
-          >
-            Explore
-          </button>
-        </div>
-        <div
-          class="card-3d bg-gray-50 rounded-xl shadow-lg p-6 flex flex-col items-center"
-        >
-          <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/basketball-action.jpg"
-            alt="Basketball"
-            class="w-32 mb-4 rounded-lg"
-          />
-          <h3 class="font-bold text-xl mb-2">Basketball</h3>
-          <button
-            class="button-animate bg-black text-white px-6 py-2 rounded-full font-bold"
-          >
-            Explore
-          </button>
-        </div>
-        <div
-          class="card-3d bg-gray-50 rounded-xl shadow-lg p-6 flex flex-col items-center"
-        >
-          <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/football-action.jpg"
-            alt="Football"
-            class="w-32 mb-4 rounded-lg"
-          />
-          <h3 class="font-bold text-xl mb-2">Football</h3>
-          <button
-            class="button-animate bg-black text-white px-6 py-2 rounded-full font-bold"
-          >
-            Explore
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Inspiration Section -->
-    <section class="px-8 py-16 bg-gradient-to-br from-gray-50 via-white to-gray-100" data-aos="fade-up">
-      <h2 class="text-4xl md:text-5xl font-extrabold mb-10 text-center tracking-tight text-black drop-shadow-lg">Inspiration</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="relative group rounded-2xl overflow-hidden shadow-2xl border-2 border-yellow-400">
-          <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/6b7e6e5e-2e7e-4e5e-8e5e-2e7e6e5e2e7e/air-max-90-shoe.png" alt="Run Inspiration" class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-300" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-            <div>
-              <h3 class="text-yellow-300 text-2xl font-extrabold mb-1 drop-shadow">Run Your World</h3>
-              <p class="text-white text-base font-medium drop-shadow">Push your limits with the latest running gear.</p>
+    <!-- Material Innovations Section -->
+    <section id="innovation" class="materials-section">
+        <div class="container">
+            <h2 class="section-title">Innovation Woven into Every Fiber</h2>
+            <div class="materials-grid">
+                <div class="material-card">
+                    <div class="material-image">
+                        <div class="texture-bg pinatex"></div>
+                    </div>
+                    <h3>Piñatex™</h3>
+                    <p>Sourced from pineapple leaves, offering a durable, breathable, and luxurious alternative to traditional materials.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="material-card">
+                    <div class="material-image">
+                        <div class="texture-bg mylo"></div>
+                    </div>
+                    <h3>Mylo™</h3>
+                    <p>Revolutionary mushroom-based material that delivers the look and feel of premium leather with zero environmental compromise.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="material-card">
+                    <div class="material-image">
+                        <div class="texture-bg apple"></div>
+                    </div>
+                    <h3>Apple Leather</h3>
+                    <p>Crafted from apple waste, this innovative material combines sustainability with exceptional durability and comfort.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="material-card">
+                    <div class="material-image">
+                        <div class="texture-bg ocean"></div>
+                    </div>
+                    <h3>Ocean Plastics</h3>
+                    <p>Recycled ocean waste transformed into high-performance polymers that protect both your feet and our planet.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="material-card">
+                    <div class="material-image">
+                        <div class="texture-bg hemp"></div>
+                    </div>
+                    <h3>Hemp Fiber</h3>
+                    <p>Utilizing one of the most sustainable crops, hemp provides a strong, breathable, and eco-friendly alternative.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                <div class="material-card">
+                    <div class="material-image">
+                        <div class="texture-bg cork"></div>
+                    </div>
+                    <h3>Cork Leather</h3>
+                    <p>Harvested from the bark of cork oak trees, this renewable resource offers a unique texture and natural water resistance.</p>
+                    <a href="#" class="learn-more">Learn More</a>
+                </div>
+                
             </div>
-          </div>
         </div>
-        <div class="relative group rounded-2xl overflow-hidden shadow-2xl border-2 border-pink-500">
-          <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/air-jordan-1-mid-shoe.png" alt="Basketball Inspiration" class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-300" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-            <div>
-              <h3 class="text-pink-400 text-2xl font-extrabold mb-1 drop-shadow">Own the Court</h3>
-              <p class="text-white text-base font-medium drop-shadow">Elevate your game with Nike Basketball essentials.</p>
+    </section>
+
+    <!-- Collection Showcase -->
+    <section id="collections" class="collections-section">
+        <div class="container">
+            <div class="collections-grid">
+                <div class="collection-card">
+                    <div class="collection-image urban"></div>
+                    <div class="collection-content">
+                        <h3>The Urban Collection</h3>
+                        <p>Contemporary elegance meets conscious design for the modern city dweller.</p>
+                        <a href="#" class="collection-cta">View Collection</a>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <div class="collection-image heritage"></div>
+                    <div class="collection-content">
+                        <h3>The Heritage Collection</h3>
+                        <p>Timeless craftsmanship reimagined with revolutionary sustainable materials.</p>
+                        <a href="#" class="collection-cta">View Collection</a>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <div class="collection-image avant"></div>
+                    <div class="collection-content">
+                        <h3>The Avant Collection</h3>
+                        <p>Bold innovation and artistic expression for the fearless fashion pioneer.</p>
+                        <a href="#" class="collection-cta">View Collection</a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="relative group rounded-2xl overflow-hidden shadow-2xl border-2 border-blue-400">
-          <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/blazer-mid-77-vintage-shoe.png" alt="Lifestyle Inspiration" class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-300" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-            <div>
-              <h3 class="text-blue-300 text-2xl font-extrabold mb-1 drop-shadow">Style in Motion</h3>
-              <p class="text-white text-base font-medium drop-shadow">Express yourself with bold, iconic looks.</p>
+    </section>
+
+    <!-- Craftsmanship Section -->
+    <section id="story" class="craftsmanship-section">
+        <div class="container">
+            <h2 class="section-title">Handcrafted for a Better Tomorrow</h2>
+            <div class="craftsmanship-content">
+                <div class="craft-block">
+                    <div class="craft-image hands"></div>
+                    <div class="craft-text">
+                        <h3>The Human Touch</h3>
+                        <p>Every pair is meticulously crafted by master artisans who bring decades of expertise to sustainable luxury.</p>
+                    </div>
+                </div>
+                <div class="craft-block reverse">
+                    <div class="craft-image workshop"></div>
+                    <div class="craft-text">
+                        <h3>Fair Practices, Exceptional Quality</h3>
+                        <p>Our ethical production facilities ensure both exceptional working conditions and uncompromising quality.</p>
+                    </div>
+                </div>
+                <div class="craft-block">
+                    <div class="craft-image bespoke"></div>
+                    <div class="craft-text">
+                        <h3>Centuries of Skill, Applied Anew</h3>
+                        <p>Traditional techniques merged with innovative materials create truly exceptional footwear.</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </section>
+
+    <!-- Bespoke Experience -->
+    <section id="bespoke" class="bespoke-section">
+        <div class="container">
+            <div class="bespoke-content">
+                <div class="bespoke-visual">
+                    <div class="bespoke-video"
+                        style="position: relative; width: 100%; height: 95vh; overflow: hidden; border-radius: 20px ;" >
+                        <div class="bespoke-bg"></div>
+                        <video autoplay muted loop playsinline 
+                            style="width: 100%; height: 95vh; object-fit: cover;">
+                            <source src="./Public/bespoke.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+                <div class="bespoke-text">
+                    <h2>Your Vision. Our Ethical Masterpiece.</h2>
+                    <h3>The Bespoke Journey</h3>
+                    <p>Experience the ultimate in sustainable luxury with our completely personalized service, where your unique vision meets our commitment to ethical excellence.</p>
+                    <div class="bespoke-features">
+                        <div class="feature">
+                            <div class="feature-icon">👥</div>
+                            <span>Personalized Consultation</span>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🌱</div>
+                            <span>Unrivaled Sustainable Material Selection</span>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">📏</div>
+                            <span>Perfected Fit, Tailored to You</span>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">✨</div>
+                            <span>A Singular Creation, Consciously Yours</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button">Begin Your Ethical Bespoke Journey</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Ethos -->
+    <section class="ethos-section">
+        <div class="container">
+            <h2 class="section-title">Our Pledge: Luxury Without Compromise</h2>
+            <div class="ethos-grid">
+                <div class="ethos-pillar">
+                    <div class="pillar-icon">🌿</div>
+                    <h3>Sustainable Sourcing</h3>
+                    <p>Beyond Materials: Ethical Supply Chains</p>
+                </div>
+                <div class="ethos-pillar">
+                    <div class="pillar-icon">♻️</div>
+                    <h3>Minimized Waste</h3>
+                    <p>Designing for Durability & Circularity</p>
+                </div>
+                <div class="ethos-pillar">
+                    <div class="pillar-icon">🤝</div>
+                    <h3>Community & Fair Labor</h3>
+                    <p>Empowering Our Artisans</p>
+                </div>
+                <div class="ethos-pillar">
+                    <div class="pillar-icon">🌍</div>
+                    <h3>Environmental Stewardship</h3>
+                    <p>Investing in a Greener Future</p>
+                </div>
+            </div>
+            <div class="impact-stat">
+                <span class="stat-number">75%</span>
+                <span class="stat-text">reduction in water usage compared to traditional methods</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="testimonials-slider">
+                <div class="testimonial active">
+                    <blockquote>"Exquisite craftsmanship meets a conscience. Truly the future of luxury footwear."</blockquote>
+                    <cite>- Emma Richardson, Sustainable Fashion Editor</cite>
+                </div>
+                <div class="testimonial">
+                    <blockquote>"I never thought I'd find shoes that matched both my style and my values so perfectly."</blockquote>
+                    <cite>- Marcus Chen, Conscious Consumer</cite>
+                </div>
+                <div class="testimonial">
+                    <blockquote>"The attention to detail and ethical approach sets a new standard for luxury."</blockquote>
+                    <cite>- Dr. Sarah Williams, Environmental Advocate</cite>
+                </div>
+            </div>
+            <div class="slider-dots">
+                <button class="dot active" data-slide="0"></button>
+                <button class="dot" data-slide="1"></button>
+                <button class="dot" data-slide="2"></button>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white px-8 py-12 mt-16">
-      <div class="flex flex-col md:flex-row justify-between gap-8">
-        <div>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg"
-            alt="Nike Logo"
-            class="h-8 mb-4"
-          />
-          <p class="text-gray-400">© 2025 Nike, Inc. All Rights Reserved.</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>EcoLux</h3>
+                    <p>Crafting Conscious Luxury for Tomorrow</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#collections">Shop</a></li>
+                        <li><a href="#innovation">Innovation</a></li>
+                        <li><a href="#bespoke">Bespoke</a></li>
+                        <li><a href="#story">Our Story</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Sustainable Shipping</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Pinterest</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="newsletter">
+                        <h5>Join Our Conscious Community</h5>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Ethical Concierge: +1 (555) 123-4567</p>
+                <p>&copy; 2025 EcoLux. All rights reserved.</p>
+            </div>
         </div>
-        <div class="flex gap-12">
-          <div>
-            <h4 class="font-bold mb-2 text-white">Help</h4>
-            <ul class="text-gray-300 space-y-1">
-              <li><a href="#" class="footer-link">Order Status</a></li>
-              <li><a href="#" class="footer-link">Shipping</a></li>
-              <li><a href="#" class="footer-link">Returns</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="font-bold mb-2 text-white">About</h4>
-            <ul class="text-gray-300 space-y-1">
-              <li><a href="#" class="footer-link">Careers</a></li>
-              <li><a href="#" class="footer-link">Investors</a></li>
-              <li><a href="#" class="footer-link">Sustainability</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script src="script.js"></script>
-    <script>
-      AOS.init();
-    </script>
 
-    <style>
-      .hide-scroll-bar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-      .hide-scroll-bar::-webkit-scrollbar {
-        display: none;
-      }
-    </style>
-  </body>
+    <!-- Cursor Follower (Desktop Only) -->
+    <div class="cursor-follower"></div>
+    <div class="cursor-trail"></div>
+</body>
 </html>

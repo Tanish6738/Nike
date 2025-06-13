@@ -1,192 +1,503 @@
-// 3D tilt effect for cards
-document.querySelectorAll('.card-3d').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    card.style.transition = 'transform 0.18s cubic-bezier(.4,0,.2,1), filter 0.18s';
-    card.style.transform = `perspective(600px) rotateY(${x / 18}deg) rotateX(${-y / 18}deg) scale(1.06)`;
-    card.style.filter = 'brightness(1.07) saturate(1.1)';
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transition = 'transform 0.18s cubic-bezier(.4,0,.2,1), filter 0.18s';
-    card.style.transform = '';
-    card.style.filter = '';
-  });
-});
-// Mobile menu toggle
-const menuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-if (menuBtn && mobileMenu) {
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-  });
-  // Optional: close menu on link click
-  mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
+// EcoLux - Interactive JavaScript functionality
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Navigation hamburger menu
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
-  });
+
+    // Navbar background opacity on scroll
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            if (scrollY > 100) {
+                navbar.style.background = 'rgba(30, 58, 36, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(30, 58, 36, 0.95)';
+            }
+        });
+    }
+
+    // Scroll-triggered animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.material-card, .collection-card, .craft-block, .ethos-pillar');
+    animateElements.forEach(el => {
+        observer.observe(el);
+    });
+
+    // Testimonials slider
+    const testimonials = document.querySelectorAll('.testimonial');
+    const dots = document.querySelectorAll('.dot');
+    let currentTestimonial = 0;
+
+    function showTestimonial(index) {
+        // Hide all testimonials
+        testimonials.forEach(testimonial => {
+            testimonial.classList.remove('active');
+        });
+        
+        // Remove active class from all dots
+        dots.forEach(dot => {
+            dot.classList.remove('active');
+        });
+        
+        // Show current testimonial and activate dot
+        if (testimonials[index]) {
+            testimonials[index].classList.add('active');
+        }
+        if (dots[index]) {
+            dots[index].classList.add('active');
+        }
+    }
+
+    // Auto-advance testimonials
+    function nextTestimonial() {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }
+
+    // Set up testimonial auto-advance
+    if (testimonials.length > 0) {
+        setInterval(nextTestimonial, 5000); // Change every 5 seconds
+        
+        // Add click handlers to dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                currentTestimonial = index;
+                showTestimonial(currentTestimonial);
+            });
+        });
+    }
+
+    // Material cards hover effects
+    const materialCards = document.querySelectorAll('.material-card');
+    materialCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-15px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(-10px) scale(1)';
+        });
+    });
+
+    // Collection cards interactive effects
+    const collectionCards = document.querySelectorAll('.collection-card');
+    collectionCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            const image = this.querySelector('.collection-image');
+            if (image) {
+                image.style.transform = 'scale(1.15)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const image = this.querySelector('.collection-image');
+            if (image) {
+                image.style.transform = 'scale(1.1)';
+            }
+        });
+    });
+
+    // Newsletter form submission
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (email) {
+                // Show success message
+                const button = this.querySelector('button');
+                const originalText = button.textContent;
+                button.textContent = 'Subscribed!';
+                button.style.background = '#32CD32';
+                
+                // Reset form
+                this.querySelector('input[type="email"]').value = '';
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                }, 3000);
+            }
+        });
+    }
+
+    // Parallax effect for hero section
+    const heroSection = document.querySelector('.hero');
+    const heroBg = document.querySelector('.hero-bg');
+    
+    if (heroSection && heroBg) {
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxSpeed = 0.5;
+            heroBg.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+        });
+    }
+
+    // CTA button interactions
+    const ctaButtons = document.querySelectorAll('.cta-button');
+    ctaButtons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.05)';
+            this.style.boxShadow = '0 20px 50px rgba(184, 134, 11, 0.5)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(-3px) scale(1)';
+            this.style.boxShadow = '0 15px 40px rgba(184, 134, 11, 0.4)';
+        });
+    });
+
+    // Scroll indicator functionality
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            const firstSection = document.querySelector('#innovation');
+            if (firstSection) {
+                firstSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Hide scroll indicator after scrolling
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            if (scrollY > 200) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.pointerEvents = 'none';
+            } else {
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.pointerEvents = 'auto';
+            }
+        });
+    }
+
+    // Material texture animation on scroll
+    const textureElements = document.querySelectorAll('.texture-bg');
+    const textureObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'textureShimmer 2s ease-in-out';
+            }
+        });
+    }, { threshold: 0.3 });
+
+    textureElements.forEach(texture => {
+        textureObserver.observe(texture);
+    });
+
+    // Add texture shimmer animation via CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes textureShimmer {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.2) contrast(1.1); }
+            100% { filter: brightness(1); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Enhanced mobile experience
+    if (window.innerWidth <= 768) {
+        // Optimize animations for mobile
+        const mobileElements = document.querySelectorAll('.material-card, .collection-card, .ethos-pillar');
+        mobileElements.forEach(element => {
+            element.style.transition = 'transform 0.2s ease, opacity 0.3s ease';
+        });
+
+        // Touch-friendly interactions
+        document.addEventListener('touchstart', function() {}, { passive: true });
+    }
+
+    // Performance optimization: Debounce scroll events
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Apply debounced scroll handlers
+    const debouncedScrollHandler = debounce(function() {
+        // Navbar background
+        const scrollY = window.scrollY;
+        if (navbar) {
+            if (scrollY > 100) {
+                navbar.style.background = 'rgba(30, 58, 36, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(30, 58, 36, 0.95)';
+            }
+        }
+
+        // Scroll indicator
+        if (scrollIndicator) {
+            if (scrollY > 200) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.pointerEvents = 'none';
+            } else {
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.pointerEvents = 'auto';
+            }
+        }
+
+        // Parallax effect
+        if (heroBg) {
+            const parallaxSpeed = 0.5;
+            heroBg.style.transform = `translateY(${scrollY * parallaxSpeed}px)`;
+        }
+    }, 10);
+
+    window.addEventListener('scroll', debouncedScrollHandler);
+
+    // Initialize page
+    console.log('EcoLux landing page initialized successfully');
+    
+    // Add loading class removal for smooth entrance
+    document.body.classList.add('loaded');
+
+    // Beautiful Cursor Follower (Desktop Only)
+    initCursorFollower();
+
+    // Keyboard accessibility
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-navigation');
+        }
+    });
+
+    document.addEventListener('mousedown', function() {
+        document.body.classList.remove('keyboard-navigation');
+    });
+});
+
+// Additional utility functions
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
 }
 
-// Trending Now Modal logic
-const trendingData = [
-  {
-    img: 'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/air-force-1-07-mens-shoes-jBrhbr.png',
-    title: 'Air Force 1',
-    type: "Men's Shoes",
-    desc: 'A timeless classic with modern comfort. The Air Force 1 is perfect for any occasion.',
-    shop: '#'
-  },
-  {
-    img: 'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/pegasus-41-mens-road-running-shoes-2w8QwQ.png',
-    title: 'Pegasus 41',
-    type: 'Running',
-    desc: 'Engineered for speed and comfort, Pegasus 41 is your go-to for daily runs.',
-    shop: '#'
-  },
-  {
-    img: 'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/air-jordan-1-low-se-mens-shoes-83Lm6D.png',
-    title: 'Jordan 1 Low',
-    type: 'Lifestyle',
-    desc: 'Iconic style meets everyday versatility. Jordan 1 Low is a must-have for sneaker lovers.',
-    shop: '#'
-  },
-  {
-    img: 'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/zoom-vomero-5-mens-shoes-5QWp5Q.png',
-    title: 'Vomero 5',
-    type: "Men's Shoes",
-    desc: 'Experience plush cushioning and bold design with the Vomero 5.',
-    shop: '#'
-  }
-];
-
-// Featured Collections Data
-const featuredData = [
-  {
-    img: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/air-max-lifestyle.jpg',
-    title: 'Air Max',
-    type: "Iconic Style",
-    desc: 'Visible cushioning and timeless design make Air Max a cultural icon. Forever changing sneaker culture.',
-    shop: '#'
-  },
-  {
-    img: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/jordan-lifestyle.jpg',
-    title: 'Jordan',
-    type: "Legendary",
-    desc: 'Channel the spirit of MJ with iconic style and unmatched performance on and off the court.',
-    shop: '#'
-  },
-  {
-    img: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/blazer-lifestyle.jpg',
-    title: 'Blazer',
-    type: "Classic",
-    desc: 'From basketball court to skate park, the Blazer continues to define timeless street style.',
-    shop: '#'
-  }
-];
-
-// Shop by Sport Data
-const sportData = [
-  {
-    img: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/running-action.jpg',
-    title: 'Running',
-    type: "Performance",
-    desc: 'Built for speed and endurance with cutting-edge technology to power your run, whatever your pace.',
-    shop: '#'
-  },
-  {
-    img: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/basketball-action.jpg',
-    title: 'Basketball',
-    type: "Court Ready",
-    desc: 'Dominate the game with responsive cushioning, superior traction, and lightweight support.',
-    shop: '#'
-  },
-  {
-    img: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/football-action.jpg',
-    title: 'Football',
-    type: "Field Performance",
-    desc: 'Engineered for speed, touch, and control to elevate your game on any surface.',
-    shop: '#'
-  }
-];
-
-// Unified modal system
-window.openModal = function(collection, idx) {
-  const modal = document.getElementById('product-modal');
-  const modalBg = document.getElementById('product-modal-bg');
-  let data;
-  
-  switch(collection) {
-    case 'trending':
-      data = trendingData[idx];
-      break;
-    case 'featured':
-      data = featuredData[idx];
-      break;
-    case 'sport':
-      data = sportData[idx];
-      break;
-    default:
-      return;
-  }
-  
-  document.getElementById('modal-img').src = data.img;
-  document.getElementById('modal-title').textContent = data.title;
-  document.getElementById('modal-type').textContent = data.type;
-  document.getElementById('modal-desc').textContent = data.desc;
-  document.getElementById('modal-shop').href = data.shop;
-  
-  modal.classList.remove('hidden');
-  modalBg.classList.remove('hidden');
-  
-  // Add animation class
-  modal.classList.add('animate-modal-in');
-  
-  // Auto-focus on close button for accessibility
-  setTimeout(() => {
-    const closeBtn = modal.querySelector('button');
-    if (closeBtn) closeBtn.focus();
-  }, 100);
-};
-
-window.closeModal = function() {
-  const modal = document.getElementById('product-modal');
-  const modalBg = document.getElementById('product-modal-bg');
-  
-  // Add animation class for closing
-  modal.classList.add('animate-modal-out');
-  
-  // Wait for animation to complete
-  setTimeout(() => {
-    modal.classList.add('hidden');
-    modalBg.classList.add('hidden');
-    modal.classList.remove('animate-modal-out', 'animate-modal-in');
-  }, 200);
-};
-
-// Maintain backward compatibility with original trending modal functions
-window.openTrendingModal = function(idx) {
-  window.openModal('trending', idx);
-};
-window.closeTrendingModal = function() {
-  window.closeModal();
-};
-
-// Add keyboard accessibility
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    window.closeModal();
-  }
-});
-
-// Initialize AOS if it exists
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof AOS !== 'undefined') {
-    AOS.init({
-      duration: 800,
-      easing: 'ease-out',
-      once: true
+// Preload critical assets
+function preloadAssets() {
+    const criticalElements = [
+        '.hero-bg',
+        '.material-image',
+        '.collection-image'
+    ];
+    
+    criticalElements.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+            const computedStyle = window.getComputedStyle(element);
+            const backgroundImage = computedStyle.backgroundImage;
+            if (backgroundImage && backgroundImage !== 'none') {
+                const img = new Image();
+                const url = backgroundImage.slice(4, -1).replace(/"/g, "");
+                img.src = url;
+            }
+        });
     });
-  }
-});
+}
+
+// Beautiful Cursor Follower (Desktop Only)
+function initCursorFollower() {
+    // Only initialize on desktop devices with fine pointer
+    if (window.innerWidth < 1024 || !window.matchMedia('(pointer: fine)').matches) {
+        return;
+    }
+
+    const cursorFollower = document.querySelector('.cursor-follower');
+    const cursorTrail = document.querySelector('.cursor-trail');
+    
+    if (!cursorFollower || !cursorTrail) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    let trailElements = [];
+    
+    // Create multiple trail elements for smooth effect
+    for (let i = 0; i < 5; i++) {
+        const trail = cursorTrail.cloneNode(true);
+        trail.style.opacity = (0.3 - i * 0.05).toString();
+        trail.style.transform = `scale(${1 - i * 0.15})`;
+        document.body.appendChild(trail);
+        trailElements.push(trail);
+    }
+
+    // Mouse move handler
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Update trail positions with delay
+        trailElements.forEach((trail, index) => {
+            setTimeout(() => {
+                trail.style.left = mouseX + 'px';
+                trail.style.top = mouseY + 'px';
+            }, index * 50);
+        });
+    });
+
+    // Smooth cursor follower animation
+    function animateCursor() {
+        // Smooth following with easing
+        cursorX += (mouseX - cursorX) * 0.1;
+        cursorY += (mouseY - cursorY) * 0.1;
+        
+        cursorFollower.style.left = cursorX + 'px';
+        cursorFollower.style.top = cursorY + 'px';
+        
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Hover effects for interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, .material-card, .collection-card, .ethos-pillar');
+    
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            cursorFollower.classList.add('cursor-hover');
+            
+            // Special effects for premium elements
+            if (element.classList.contains('cta-button') || 
+                element.classList.contains('collection-card') ||
+                element.classList.contains('material-card')) {
+                cursorFollower.classList.add('cursor-pulse');
+            }
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            cursorFollower.classList.remove('cursor-hover', 'cursor-pulse');
+        });
+        
+        element.addEventListener('mousedown', () => {
+            cursorFollower.classList.add('cursor-click');
+        });
+        
+        element.addEventListener('mouseup', () => {
+            cursorFollower.classList.remove('cursor-click');
+        });
+    });
+
+    // Magnetic effect for premium elements
+    const magneticElements = document.querySelectorAll('.cta-button, .nav-logo');
+    
+    magneticElements.forEach(element => {
+        element.classList.add('cursor-magnetic');
+        
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            const distance = Math.sqrt(x * x + y * y);
+            const maxDistance = 100;
+            
+            if (distance < maxDistance) {
+                const strength = (maxDistance - distance) / maxDistance;
+                const moveX = x * strength * 0.3;
+                const moveY = y * strength * 0.3;
+                
+                element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            element.style.transform = 'translate(0px, 0px)';
+        });
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursorFollower.style.opacity = '0';
+        trailElements.forEach(trail => {
+            trail.style.opacity = '0';
+        });
+    });
+
+    document.addEventListener('mouseenter', () => {
+        cursorFollower.style.opacity = '0.8';
+        trailElements.forEach((trail, index) => {
+            trail.style.opacity = (0.3 - index * 0.05).toString();
+        });
+    });
+
+    // Scroll-based effects
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        cursorFollower.classList.add('cursor-pulse');
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            cursorFollower.classList.remove('cursor-pulse');
+        }, 1000);
+    });
+
+    // Text selection effect
+    document.addEventListener('selectstart', () => {
+        cursorFollower.classList.add('cursor-click');
+    });
+
+    document.addEventListener('selectend', () => {
+        cursorFollower.classList.remove('cursor-click');
+    });
+
+    console.log('Cursor follower initialized for desktop');
+}
